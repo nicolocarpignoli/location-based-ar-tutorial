@@ -27,11 +27,36 @@ function staticLoadPlaces() {
 }
 
 var models = [
-    './assets/magnemite/scene.gltf',
-    './assets/articuno/scene.gltf',
-    './assets/mew/scene.gltf',
+    {
+        url: './assets/magnemite/scene.gltf',
+        scale: '0.75 0.75 0.75',
+    },
+    {
+        url: './assets/articuno/scene.gltf',
+        scale: '0.2 0.2 0.2',
+    },
+    {
+        url: './assets/dragonite/scene.gltf',
+        scale: '0.01 0.01 0.01',
+    },
 ];
 var modelIndex = 0;
+
+var setModel = function (model, entity) {
+    if (model.scale) {
+        entity.setAttribute('scale', model.scale);
+    }
+
+    // if (model.rotation) {
+    //     model.object3D.rotation.set(model.rotation.x, model.rotation.y, model.rotation.z);
+    // }
+
+    // if (model.position) {
+    //     model.object3D.position.set(model.position.x, model.position.y, model.position.z);
+    // }
+
+    entity.setAttribute('gltf-model', model.url);
+};
 
 function renderPlaces(places) {
     let scene = document.querySelector('a-scene');
@@ -42,9 +67,10 @@ function renderPlaces(places) {
 
         let model = document.createElement('a-entity');
         model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-        model.setAttribute('gltf-model', models[modelIndex]);
+
+        setModel(models[modelIndex], model);
+
         model.setAttribute('animation-mixer', '');
-        model.setAttribute('scale', '0.75 0.75 0.75');
 
         model.addEventListener('loaded', () => {
             window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
@@ -53,9 +79,11 @@ function renderPlaces(places) {
         document.querySelector('button[data-action="change"]').addEventListener('click', function () {
             var entity = document.querySelector('[gps-entity-place]');
 
+            alert(JSON.stringify(entity.getAttribute('scale')))
+
             modelIndex++;
             var newIndex = modelIndex % models.length;
-            entity.setAttribute('gltf-model', models[newIndex]);
+            setModel(models[newIndex], entity);
         });
 
         scene.appendChild(model);
