@@ -1,0 +1,25 @@
+.centered {
+    height: 20%;
+    justify-content: center;
+    position: fixed;
+    bottom: 0%;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0px auto;
+    left: 0;
+    right: 0;
+}
+
+button {
+    border: 2px solid white;
+    background-color: transparent;
+    width: 2em;
+    height: 2em;
+    border-radius: 100%;
+    font-size: 2em;
+    padding: 0 0.55em;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    outline: none;
+}
