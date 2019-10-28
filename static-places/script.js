@@ -15,9 +15,8 @@ function staticLoadPlaces() {
         {
             name: 'Pokèmon',
             location: {
-                // via lucchini
-                // lat: 44.496470,
-                // lng: 11.320180,
+                // lat: <your-latitude>,
+                // lng: <your-longitude>,
 
                 lat: 44.492222,
                 lng: 11.325090,
@@ -29,33 +28,42 @@ function staticLoadPlaces() {
 var models = [
     {
         url: './assets/magnemite/scene.gltf',
-        scale: '0.75 0.75 0.75',
+        scale: '0.5 0.5 0.5',
+        info: 'Magnemite, Lv. 5, HP 10/10',
+        rotation: '0 0 0',
     },
     {
         url: './assets/articuno/scene.gltf',
         scale: '0.2 0.2 0.2',
+        rotation: '0 0 0',
+        info: 'Articuno, Lv. 80, HP 100/100',
     },
     {
         url: './assets/dragonite/scene.gltf',
-        scale: '0.01 0.01 0.01',
+        scale: '0.001 0.001 0.001',
+        rotation: '90 0 0',
+        info: 'Dragonite, Lv. 99, HP 150/150',
     },
 ];
-var modelIndex = 0;
 
+var modelIndex = 0;
 var setModel = function (model, entity) {
     if (model.scale) {
         entity.setAttribute('scale', model.scale);
     }
 
-    // if (model.rotation) {
-    //     model.object3D.rotation.set(model.rotation.x, model.rotation.y, model.rotation.z);
-    // }
+    if (model.rotation) {
+        entity.setAttribute('rotation', model.rotation);
+    }
 
-    // if (model.position) {
-    //     model.object3D.position.set(model.position.x, model.position.y, model.position.z);
-    // }
+    if (model.position) {
+        entity.setAttribute('position', model.position);
+    }
 
     entity.setAttribute('gltf-model', model.url);
+
+    const div = document.querySelector('.instructions');
+    div.innerText = model.info;
 };
 
 function renderPlaces(places) {
@@ -72,15 +80,8 @@ function renderPlaces(places) {
 
         model.setAttribute('animation-mixer', '');
 
-        model.addEventListener('loaded', () => {
-            window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
-        });
-
         document.querySelector('button[data-action="change"]').addEventListener('click', function () {
             var entity = document.querySelector('[gps-entity-place]');
-
-            alert(JSON.stringify(entity.getAttribute('scale')))
-
             modelIndex++;
             var newIndex = modelIndex % models.length;
             setModel(models[newIndex], entity);

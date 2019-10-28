@@ -23,3 +23,11 @@ button {
     color: white;
     outline: none;
 }
+
+.instructions {
+    position: fixed;
+    top: 5%;
+    font-size: 1.25em;
+    color: white;
+    z-index: 999999;
+}
