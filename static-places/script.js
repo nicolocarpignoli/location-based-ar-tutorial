@@ -1,13 +1,10 @@
 
 window.onload = () => {
-    // setTimeout is a temporary fix
     const button = document.querySelector('button[data-action="change"]');
     button.innerText = '﹖';
 
-    setTimeout(() => {
-        let places = staticLoadPlaces();
-        renderPlaces(places);
-    }, 3000);
+    let places = staticLoadPlaces();
+    renderPlaces(places);
 };
 
 function staticLoadPlaces() {
