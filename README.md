@@ -11,3 +11,5 @@ These three, basic projects are used on [this tutorial](https://medium.com/chial
 *  only-html: add one (ore more) place using only a single HTML file. Needs manual addition of valid coordinates.
 
 Have fun! 🌍
+
+Live URL (i.e. for v3 folder): [https://nicolocarpignoli.github.io/location-based-ar-tutorial/v3](https://nicolocarpignoli.github.io/location-based-ar-tutorial/v3)
